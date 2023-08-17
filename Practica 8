@@ -16,7 +16,7 @@
 <img id="eclipse" src="eclipse.png" width="64px" height="64px">
 
 <canvas width="600" height="400" id="myCanvas">
-Your browser does not support the HTML canvas tag.
+Your browser does not support the HTML canvas taga.
 </canvas>
 
 <script>
