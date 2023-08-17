@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+    	#myCanvas{
+            border: 1px solid #000000;
+            background: #BCBCBC;
+        }
+        #eclipse{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<img id="eclipse" src="eclipse.png" width="64px" height="64px">
+
+<canvas width="600" height="400" id="myCanvas">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.fillStyle= "#F33E2C";
+ctx.fillRect(20,10,35,30);
+ctx.closePath();
+ctx.beginPath();
+ctx.fillStyle= `rgba(44, 122, 243, .85)`;
+ctx.fillRect(30,20,35,30);
+ctx.closePath();
+ctx.beginPath();
+ctx.strokeStyle="red";
+ctx.moveTo(185,40);
+ctx.lineTo(245,80);
+ctx.stroke();
+ctx.closePath();
+ctx.beginPath();
+ctx.moveTo(125,38);
+ctx.lineTo(155,18);
+ctx.lineTo(185,40);
+ctx.fill();
+ctx.closePath();
+ctx.beginPath();
+ctx.fillStyle= "green";
+ctx.arc(120, 100, 20, 0, 4 * Math.PI);
+ctx.fill();
+ctx.stroke();
+ctx.closePath();
+ctx.beginPath();
+ctx.arc(170, 100, 20, 0, 4 * Math.PI);
+ctx.stroke();
+ctx.closePath();
+
+ctx.font = "40px Georgia";
+ctx.strokeText("Hola Mundo", 303, 58);
+ctx.fillText("Hola Mundo", 300, 55);
+
+
+var grd = ctx.createLinearGradient(0,250,200,150);
+grd.addColorStop(0, "#3144FA");
+grd.addColorStop(0.4, "#BE5FEE");
+grd.addColorStop(0.8, "#F330A1")
+grd.addColorStop(1, "#F35C30");
+
+ctx.fillStyle = grd;
+ctx.fillRect(50,200,200,150);
+
+var grd2 = ctx.createRadialGradient(375,250, 15,375,250, 100);
+grd2.addColorStop(0, "#3144FA");
+grd2.addColorStop(0.4, "#BE5FEE");
+grd2.addColorStop(0.8, "#F330A1")
+grd2.addColorStop(1, "#F35C30");
+
+ctx.fillStyle = grd2;
+ctx.fillRect(275,150,200,200);
+
+img = document.getElementById("eclipse");
+ctx.drawImage(img, 350,80, 64,64);
+
+
+</script>
+
+</body>
+</html>
