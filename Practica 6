@@ -62,15 +62,6 @@ grd.addColorStop(1, "#F35C30");
 ctx.fillStyle = grd;
 ctx.fillRect(50,200,200,150);
 
-var grd2 = ctx.createRadialGradient(375,250, 15,375,250, 100);
-grd2.addColorStop(0, "#3144FA");
-grd2.addColorStop(0.4, "#BE5FEE");
-grd2.addColorStop(0.8, "#F330A1")
-grd2.addColorStop(1, "#F35C30");
-
-ctx.fillStyle = grd2;
-ctx.fillRect(275,150,200,200);
-
 
 </script>
 
