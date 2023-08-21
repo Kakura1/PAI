@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+    	#myCanvas{
+            border: 1px solid #000000;
+            background: #BCBCBC;
+        }
+        #eclipse{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+<canvas width="600" height="400" id="myCanvas">
+Your browser does not support the HTML canvas taga.
+</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var color = `rgba(71, 228, 211, 0.60)`;
+var figura = true;
+ctx.fillStyle = color;
+c.addEventListener("click", (e) =>{
+    if (figura){
+        ctx.strokeStyle= `rgba(0, 0, 0, 0.80)`;
+        ctx.beginPath();
+	    ctx.arc(e.x, e.y, 50, 0, 4 * Math.PI);
+	    ctx.fill();
+   	    ctx.stroke();
+    } else {
+        ctx.strokeStyle= `rgba(0, 0, 0, 0.80)`;
+        ctx.fillRect(e.x - 25, e.y - 25, 50,50);
+        ctx.fill();
+   	    ctx.stroke(); 
+    }
+});
+
+</script>
+
+</body>
+</html>
