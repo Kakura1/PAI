@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+    	#myCanvas{
+            border: 1px solid #000000;
+            background: #BCBCBC;
+        }
+        #eclipse{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<img id="eclipse" src="eclipse.png" width="64px" height="64px">
+
+<canvas width="500" height="500" id="myCanvas">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var color = `rgba(71, 228, 211, 0.60)`;
+var figura = true;
+var pintar = false;
+ctx.fillStyle = color;
+ctx.strokeStyle= "black";
+var x = 225, y = 225;
+
+document.addEventListener("keydown", (e) =>{
+    
+    /*
+    x = randomNum();
+    y = randomNum();
+    */
+    switch(e.keyCode){
+        case 87:
+            y-=10;
+            break;
+        case 83:
+            y+=10;
+            break;
+        case 68:
+            x+=10;
+            break;
+        case 65:
+            x-=10;
+            break;
+    }
+
+    var rgbVals = randomRGB();
+    var tempColor = "rgba(" + rgbVals[0] + ", " + rgbVals[1] + ", " + rgbVals[2] + ", 0.60)";
+	color = tempColor;
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, 50,50);
+   	ctx.strokeRect(x, y, 50,50); 
+
+
+});
+
+/*
+c.addEventListener("click", (e) =>{
+    if (figura){
+        ctx.strokeStyle= `rgba(0, 0, 0, 0.80)`;
+        ctx.beginPath();
+	    ctx.arc(e.x, e.y, 50, 0, 4 * Math.PI);
+	    ctx.fill();
+   	    ctx.stroke();
+        ctx.closePath();
+    } else {
+        ctx.strokeStyle= "black";
+        ctx.fillRect(e.x - 50, e.y - 50, 100,100);
+   	    ctx.strokeRect(); 
+    }
+}); */
+
+function randomNum() {
+    return Math.floor(Math.random() * 450);
+}
+    
+function randomRGB() {
+    var red = randomNum();
+    var green = randomNum();
+    var blue = randomNum();
+    return [red,green,blue];
+}
+/*
+c.addEventListener("mouseover", (e) =>{
+    randomRGB();
+    var rgbVals = randomRGB();
+    var tempColor = "rgba(" + rgbVals[0] + ", " + rgbVals[1] + ", " + rgbVals[2] + ", 0.60)";
+	color = tempColor;
+    ctx.fillStyle = color;
+});
+
+c.addEventListener("mouseout", (e) =>{
+    if (figura){
+        figura = false;
+    } else {
+        figura = true;
+    }
+});
+
+c.addEventListener("mousemove", (e) =>{
+    if(pintar){
+        ctx.strokeStyle= `rgba(0, 0, 0, 0.80)`;
+        ctx.beginPath();
+        ctx.arc(e.x, e.y, 5, 0, 4 * Math.PI);
+        ctx.stroke();
+        ctx.closePath();
+    }
+});
+
+c.addEventListener("mousedown", (e) =>{
+    pintar = true;
+});
+c.addEventListener("mouseup", (e) =>{
+    pintar = false;
+});
+*/
+
+</script>
+
+</body>
+</html>
