@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+    	#myCanvas{
+            border: 1px solid #000000;
+            background: #BCBCBC;
+        }
+        #eclipse{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+<canvas width="500" height="500" id="myCanvas">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var color = `rgba(71, 228, 211, 0.60)`;
+    var figura = true;
+    var pintar = false;
+    ctx.fillStyle = color;
+    ctx.strokeStyle= "black";
+    var x = 225, y = 225;
+    var dir = 0;
+
+    document.addEventListener("keydown", (e) =>{
+    switch(e.keyCode){
+        case 87:
+            dir = e.keyCode;
+            break;
+        case 83:
+            dir = e.keyCode;
+            break;
+        case 68:
+            dir = e.keyCode;
+            break;
+        case 65:
+            dir = e.keyCode;
+            break;
+    }
+    // update(dir);
+	});
+
+    window.requestAnimationFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 15);
+        };
+    }());
+
+    function repaint(){
+        ctx.fillStyle = "#BCBCBC";
+        ctx.fillRect(0,0,500,500);
+        var rgbVals = randomRGB();
+        var tempColor = "rgba(" + rgbVals[0] + ", " + rgbVals[1] + ", " + rgbVals[2] + ", 0.60)";
+        color = tempColor;
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, 50,50);
+        ctx.strokeRect(x, y, 50,50); 
+
+    }
+
+
+    function update(){
+        switch(dir){    	
+            case 87:
+                y-=10;
+                if (y < -50) { y = 550;}
+                break;
+            case 83:
+                y+=10;
+                if (y > 550) { y = -50;}
+                break;
+            case 68:
+                x+=10
+                if (x > 550) { x = - 50;}
+                break;
+            case 65:
+                x-=10;
+                if (x < - 50) { x = 550;}
+                break;
+        }
+        repaint();
+        window.requestAnimationFrame(update);
+    }
+
+    function randomNum() {
+        return Math.floor(Math.random() * 450);
+    }
+        
+    function randomRGB() {
+        var red = randomNum();
+        var green = randomNum();
+        var blue = randomNum();
+        return [red,green,blue];
+    }
+
+    window.requestAnimationFrame(update);
+
+</script>
+
+</body>
+</html>
