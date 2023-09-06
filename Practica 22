@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #myCanvas {
+            border: 1px solid #000000;
+            background: #BCBCBC;
+        }
+
+        img {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="cara.png" alt="" width="50" height="50" id="cara">
+    <img src="pizza.png" alt="" width="50" height="50" id="pizza">
+
+    <canvas width="500" height="500" id="myCanvas">
+        Your browser does not support the HTML canvas tag.
+    </canvas>
+
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        var color = `rgba(71, 228, 211, 0.60)`;
+        var figura = true;
+        var pintar = false;
+        ctx.fillStyle = color;
+        ctx.strokeStyle = "black";
+        var x = 225, y = 225;
+        var dir = 0;
+        var speed = 5;
+        var pause;
+        let score = 0;
+        let audio1 = new Audio("coin.mp3");
+        let img1 = document.getElementById("cara");
+        let img2 = document.getElementById("pizza");
+
+
+
+        class Rectangulo {
+            constructor(x, y, w, h, c) {
+                this.x = x;
+                this.y = y;
+                this.w = w;
+                this.h = h;
+                this.c = c;
+            }
+
+            pintar(ctx) {
+                ctx.fillStyle = this.c;
+                ctx.strokeStyle = "black"
+                ctx.fillRect(this.x, this.y, this.w, this.h);
+                ctx.strokeRect(this.x, this.y, this.w, this.h);
+            }
+
+            tocar(target) {
+                if (this.x < target.x + target.w &&
+                    this.x + this.w > target.x &&
+                    this.y < target.y + target.h &&
+                    this.y + this.h > target.y) {
+                    target.x = Math.floor(Math.random() * 300) + 75;
+                    target.y = Math.floor(Math.random() * 300) + 75;
+                    speed++;
+                    score += 10;
+                    audio1.play();
+                }
+            }
+
+            colision(wall) {
+                if (this.x < wall.x + wall.w &&
+                    this.x + this.w > wall.x &&
+                    this.y < wall.y + wall.h &&
+                    this.y + this.h > wall.y) {
+                    switch (dir) {
+                        case 87:
+                            this.y += speed;
+                            if (this.y < -50) { this.y = 550; }
+                            break;
+                        case 83:
+                            this.y -= speed;
+                            if (this.y > 550) { this.y = -50; }
+                            break;
+                        case 68:
+                            this.x -= speed;
+                            if (this.x > 550) { this.x = - 50; }
+                            break;
+                        case 65:
+                            this.x += speed;
+                            if (this.x < - 50) { this.x = 550; }
+                            break;
+                    }
+                }
+            }
+
+            update() {
+                switch (dir) {
+                    case 87:
+                        this.y -= speed;
+                        if (this.y < -50) { this.y = 550; }
+                        break;
+                    case 83:
+                        this.y += speed;
+                        if (this.y > 550) { this.y = -50; }
+                        break;
+                    case 68:
+                        this.x += speed;
+                        if (this.x > 550) { this.x = - 50; }
+                        break;
+                    case 65:
+                        this.x -= speed;
+                        if (this.x < - 50) { this.x = 550; }
+                        break;
+                }
+            }
+        }
+
+        let player = new Rectangulo(225, 225, 50, 50, color);
+        let target = new Rectangulo(325, 325, 50, 50, "black");
+        let walls = [];
+        walls.push(new Rectangulo(25, 25, 450, 50, "gray"));
+        walls.push(new Rectangulo(25, 425, 450, 50, "gray"));
+        /*
+        walls.push(new Rectangulo(25,75,50,350,"gray"));
+        walls.push(new Rectangulo(425,75,50,350,"gray"));
+        */
+
+        document.addEventListener("keydown", (e) => {
+            switch (e.keyCode) {
+                case 87:
+                    dir = e.keyCode;
+                    break;
+                case 83:
+                    dir = e.keyCode;
+                    break;
+                case 68:
+                    dir = e.keyCode;
+                    break;
+                case 65:
+                    dir = e.keyCode;
+                    break;
+                case 32:
+                    if (!pause) {
+                        pause = true;
+                    } else if (pause) {
+                        pause = false;
+                    }
+                    break;
+            }
+            // update(dir);
+        });
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 15);
+                };
+        }());
+
+        function repaint() {
+            ctx.fillStyle = "#BCBCBC";
+            ctx.fillRect(0, 0, 500, 500);
+            ctx.fillText("Score: " + score, 25, 0);
+            var rgbVals = randomRGB();
+            var tempColor = "rgba(" + rgbVals[0] + ", " + rgbVals[1] + ", " + rgbVals[2] + ", 0.60)";
+            player.c = tempColor;
+
+            ctx.drawImage(img1, player.x, player.y, 50, 50);
+
+
+            ctx.drawImage(img2, target.x, target.y, 50, 50);
+
+            for (var i = 0; i < walls.length; i++) {
+                walls[i].pintar(ctx);
+            }
+
+            ctx.fillStyle = "Black";
+            ctx.font = "25px Arial";
+            ctx.fillText("Score: " + score, 45, 55);
+        }
+
+        function update() {
+            if (!pause) {
+                repaint();
+                player.update();
+                player.tocar(target);
+                for (var i = 0; i < walls.length; i++) {
+                    player.colision(walls[i]);
+                }
+            } else {
+                ctx.fillStyle = "rgba(136, 220, 211, 0.1)";
+                ctx.fillRect(0, 0, 500, 500);
+
+                ctx.fillStyle = "Black";
+                ctx.font = "50PX Arial";
+                ctx.fillText("P a u s e", 150, 200);
+            }
+
+            window.requestAnimationFrame(update);
+        }
+
+        function randomNum() {
+            return Math.floor(Math.random() * 450);
+        }
+
+        function randomRGB() {
+            var red = randomNum();
+            var green = randomNum();
+            var blue = randomNum();
+            return [red, green, blue];
+        }
+
+        window.requestAnimationFrame(update);
+
+    </script>
+
+</body>
+
+</html>
