@@ -1,0 +1,29 @@
+@colors: #DC9388, #E9C329, #95DC6A, #4C9FE0, #953DCD;
+@color: #BB37AD;
+
+.colorear-lista(@colores; @i: 1) when (@i <=@colores) {
+    @back: extract(@colors, @i);
+
+    .item-@{i} {
+        background-color: @back;
+    }
+
+    .colorear-lista(@colores, @i + 1);
+}
+
+
+body{
+    fieldset{
+        ul{
+            text-align: justify;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 15px;
+            list-style: none;
+            li{
+                border: 1px dotted black;
+            }
+            .colorear-lista(5);
+        }
+    }
+}

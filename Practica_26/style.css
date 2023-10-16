@@ -1,0 +1,25 @@
+body fieldset ul {
+  text-align: justify;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+  list-style: none;
+}
+body fieldset ul li {
+  border: 1px dotted black;
+}
+body fieldset ul .item-1 {
+  background-color: #DC9388;
+}
+body fieldset ul .item-2 {
+  background-color: #E9C329;
+}
+body fieldset ul .item-3 {
+  background-color: #95DC6A;
+}
+body fieldset ul .item-4 {
+  background-color: #4C9FE0;
+}
+body fieldset ul .item-5 {
+  background-color: #953DCD;
+}
