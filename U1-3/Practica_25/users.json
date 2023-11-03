@@ -1,0 +1,19 @@
+[
+    {
+        "name":"Jose Ramon",
+        "lastname":"Villavicencio Alvarez",
+        "email":"joseramonv_20@alu.uabcs.mx",
+        "password":"1234",
+        "role_id":"1",
+        "avatar":""
+    },
+    {
+        "name":"Juan Carlos",
+        "lastname":"Rodriguez Gutierrez",
+        "email":"juanca@gmail.com",
+        "password":"5678",
+        "role_id":"1",
+        "avatar":""
+    }
+
+]
